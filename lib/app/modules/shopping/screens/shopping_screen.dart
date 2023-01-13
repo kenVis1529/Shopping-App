@@ -28,7 +28,7 @@ class _HomeState extends State<Home> {
               return ListView.builder(
                   itemCount: controller.products.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return const CardProduct();
+                    return CardProduct(product: controller.products[index]);
                   });
             }),
           ),
