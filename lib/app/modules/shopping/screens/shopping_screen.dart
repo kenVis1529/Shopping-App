@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shopping_app/app/modules/cast/cart_controller.dart';
 import 'package:shopping_app/app/modules/shopping/shopping_controler.dart';
 import 'package:shopping_app/app/modules/shopping/widgets/card_product.dart';
 
@@ -12,6 +13,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final shoppingController = Get.put(ShoppingController());
+  final castController = Get.put(CartController());
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +30,18 @@ class _HomeState extends State<Home> {
               return ListView.builder(
                   itemCount: controller.products.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return CardProduct(product: controller.products[index]);
+                    return CardProduct(
+                      product: controller.products[index],
+                      controller: controller,
+                    );
                   });
             }),
           ),
-          const Text("Total cost: \$"),
+          GetX<CartController>(
+            builder: (controller) {
+              return Text("Total cost: \$ ${controller.totalCost}");
+            },
+          ),
           const SizedBox(
             height: 100.0,
           ),
