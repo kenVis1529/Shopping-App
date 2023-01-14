@@ -26,22 +26,18 @@ class _HomeState extends State<Home> {
       body: Column(
         children: [
           Expanded(
-            child: GetX<ShoppingController>(builder: (controller) {
-              return ListView.builder(
-                  itemCount: controller.products.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return CardProduct(
-                      product: controller.products[index],
-                      controller: controller,
-                    );
-                  });
-            }),
+            child: Obx(
+              () => ListView.builder(
+                itemCount: shoppingController.products.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return CardProduct(
+                    product: shoppingController.products[index],
+                  );
+                },
+              ),
+            ),
           ),
-          GetX<CartController>(
-            builder: (controller) {
-              return Text("Total cost: \$ ${controller.totalCost}");
-            },
-          ),
+          Obx(() => Text("Total cost: \$ ${castController.totalCost}")),
           const SizedBox(
             height: 100.0,
           ),
